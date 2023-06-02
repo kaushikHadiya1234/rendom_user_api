@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rendom_user/Screen/Provider/user_provider.dart';
 import 'package:rendom_user/Screen/View/home_screen.dart';
+import 'package:rendom_user/Screen/View/splace_screen.dart';
 import 'package:rendom_user/utils/Myhttp.dart';
 import 'package:sizer/sizer.dart';
 
@@ -16,7 +17,8 @@ void main() {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           routes: {
-            '/': (context) => HomeScreen(),
+            '/': (context) => SplaceScreen(),
+            'home': (context) => HomeScreen(),
           },
         ),
       ),

@@ -10,8 +10,8 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Refresh(index) {
-    data = index;
-    notifyListeners();
-  }
+  // Refresh(index) {
+  //   data = index;
+  //   notifyListeners();
+  // }
 }

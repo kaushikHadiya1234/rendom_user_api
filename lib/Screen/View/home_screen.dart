@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: IconButton(
                 onPressed: () async {
                   // pf!.Refresh(await Apihelper.apihelper.ApiData());
-                  Provider.of<UserProvider>(context, listen: false).getData();
+                  pf!.getData();
                 },
                 icon: Icon(
                   Icons.refresh,
@@ -53,238 +53,88 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.black,
         ),
         backgroundColor: Colors.black,
-        body:
-            // FutureBuilder(
-            //   future: pt!.data,
-            //   builder: (context, snapshot) {
-            //     if (snapshot.hasError) {
-            //       return Text(
-            //         "Error :- ${snapshot.error}",
-            //         style: TextStyle(color: Colors.white),
-            //       );
-            //     } else if (snapshot.hasData) {
-            //       pf!.Refresh(snapshot.pt!.data!);
-            //       UserModel data = snapshot.pt!.data!;
-            //       return
-            pt!.data == null
-                ? CircularProgressIndicator()
-                : SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: CircleAvatar(
-                              radius: 80,
-                              backgroundImage: NetworkImage(
-                                "${pt!.data!.results![0].picture!.large}",
-                              ),
+        body: Center(
+          child: pt!.data == null
+              ? CircularProgressIndicator()
+              : SingleChildScrollView(
+                child: Container(
+                  height: 80.h,
+                  width: 95.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.white)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: CircleAvatar(
+                            radius: 80,
+                            backgroundImage: NetworkImage(
+                              "${pt!.data!.results![0].picture!.large}",
                             ),
                           ),
-                          SizedBox(
-                            height: 10,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "${pt!.data!.results![0].name!.title} ${pt!.data!.results![0].name!.first} ${pt!.data!.results![0].name!.last}",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 25.sp),
                           ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "${pt!.data!.results![0].name!.title} ${pt!.data!.results![0].name!.first} ${pt!.data!.results![0].name!.last}",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 25.sp),
-                            ),
-                          ),
-                          Container(
-                            height: 3.h,
-                            alignment: Alignment.topLeft,
-                            // color: Colors.yellow,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Name :",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "${pt!.data!.results![0].name!.title} ${pt!.data!.results![0].name!.first} ${pt!.data!.results![0].name!.last}",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            height: 30,
-                            alignment: Alignment.topLeft,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Email :",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "${pt!.data!.results![0].email}",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            height: 30,
-                            // color: Colors.yellow,
-                            alignment: Alignment.topLeft,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Phone :",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "${pt!.data!.results![0].phone}",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 30,
-                            // color: Colors.yellow,
-                            alignment: Alignment.topLeft,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Cell :",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "${pt!.data!.results![0].cell}",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 60,
-                            alignment: Alignment.topLeft,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Address :",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    // height: 60,
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "${pt!.data!.results![0].location!.street!.number} ${pt!.data!.results![0].location!.street!.name}, ${pt!.data!.results![0].location!.city},\n${pt!.data!.results![0].location!.state}, ${pt!.data!.results![0].location!.country} -${pt!.data!.results![0].location!.postcode}",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 12.sp),
-                                      maxLines: 3,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 30,
-                            alignment: Alignment.topLeft,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Dob Date :",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                                SizedBox(width: 5),
-                                Text(
-                                  "${pt!.data!.results![0].dob!.date}",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 30,
-                            alignment: Alignment.topLeft,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Dob Age :",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "${pt!.data!.results![0].dob!.age}",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 30,
-                            alignment: Alignment.topLeft,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "NAT :",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                                SizedBox(width: 5),
-                                Text(
-                                  "${pt!.data!.results![0].nat}",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12.sp),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                        Coustom("Name", '${pt!.data!.results![0].name!.title} ${pt!.data!.results![0].name!.first} ${pt!.data!.results![0].name!.last}'),
+                        Coustom('Email', "${pt!.data!.results![0].email}"),
+                        Coustom('Phone', "${pt!.data!.results![0].phone}"),
+                        Coustom('Cell',  "${pt!.data!.results![0].cell}"),
+                        Coustom('Address', "${pt!.data!.results![0].location!.street!.number} ${pt!.data!.results![0].location!.street!.name}, ${pt!.data!.results![0].location!.city},\n${pt!.data!.results![0].location!.state}, ${pt!.data!.results![0].location!.country} -${pt!.data!.results![0].location!.postcode}"),
+                        Coustom('Dob Date', "${pt!.data!.results![0].dob!.date}"),
+                        Coustom('Dob Age', "${pt!.data!.results![0].dob!.age}"),
+                        Coustom('Nat', "${pt!.data!.results![0].nat}")
+                      ],
                     ),
                   ),
-        // }
-        // return Center(child: CircularProgressIndicator());
-        // },
-        // ),
+                ),
+              ),
+        ),
+      ),
+    );
+  }
+  Widget Coustom(String? name,String? value) {
+    return   Container(
+      height: 40,
+      alignment: Alignment.topLeft,
+      child: Row(
+        children: [
+          Text(
+            "$name :",
+            style: TextStyle(
+                color: Colors.white, fontSize: 12.sp),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Expanded(
+            child: Container(
+              // height: 60,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "$value",
+                style: TextStyle(
+                    color: Colors.white, fontSize: 12.sp),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
